@@ -1,0 +1,142 @@
+body {
+    height: 800px;
+    display: grid;
+    background-color: #d6cf91;
+}
+
+.operations {
+    background-color: #b7b7b7;
+}
+
+.numbers {
+    background-color: white;
+}
+
+#calculator-container {
+    margin: auto;
+}
+
+#keyboard > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10%;
+    border: 2px solid white;
+    transition-duration: 0.1s;
+    box-shadow: 0 9px lightgray;
+}
+
+#keyboard > div:hover {
+    background-color: black;
+    color: white;
+}
+
+#keyboard > div:active {
+    background-color: white;
+    color: black;
+    transform: translateY(4px);
+    box-shadow: 0 5px gray;
+}
+
+#display {
+    font-family: 'Space Mono', monospace;
+    font-size: 50px;
+    text-align: right;
+    height: 100px;
+    padding: 10px;
+    background-color: #e2e2e2;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+#keyboard {
+    font-family: 'Space Mono', monospace;
+    font-size: 30px;
+    font-weight: 550;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+    grid-template-areas:
+        "seven  eight   nine   clear"
+        "four   five    six    divide"
+        "one    two     three  multi"
+        "zero0  point   .      minus"
+        ".     .       equals  plus";
+    grid-template-columns: repeat(4, 100px);
+    grid-template-rows: repeat(5, 100px);
+    column-gap: 10px;
+    row-gap: 19px;
+    background-color: #0060ad;
+    padding: 20px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+#k-point {
+    grid-area: point;
+}
+
+#k-clear {
+    grid-area: clear;
+}
+
+#k-divide {
+    grid-area: divide;
+}
+
+#k-multi {
+    grid-area: multi;
+}
+
+#k-minus {
+    grid-area: minus;
+}
+
+#k-plus {
+    grid-area: plus;
+}
+
+#k-equals {
+    grid-area: equals;
+}
+
+#k-1 {
+    grid-area: one;
+}
+
+#k-2 {
+    grid-area: two;
+}
+
+#k-3 {
+    grid-area: three;
+}
+
+#k-4 {
+    grid-area: four;
+}
+
+#k-5 {
+    grid-area: five;
+}
+
+#k-6 {
+    grid-area: six;
+}
+
+#k-7 {
+    grid-area: seven;
+}
+
+#k-8 {
+    grid-area: eight;
+}
+
+#k-9 {
+    grid-area: nine;
+}
+
+#k-0 {
+    grid-area: zero0;
+}
