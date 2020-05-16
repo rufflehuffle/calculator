@@ -49,10 +49,10 @@ function deleteFromDisplay() {
 
 function runCalculation() {
     const display = document.querySelector('#display-main');
-    let result = "";
+    let result = Math.round(+operateOnArray(sanitizeInput(display.textContent)));
 
-    if (!(result === "ERROR")) {
-        result = Math.round(+operateOnArray(sanitizeInput(display.textContent)));
+    if (sanitizeInput(display.textContent) === 'ERROR') {
+        result = "ERROR"
     }
 
     const lowerDisplay = document.querySelector('#display-lower');
