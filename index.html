@@ -12,26 +12,28 @@
     <body>
         <div id="calculator-container">
             <div id="display">
-                0
+                <span id="display-main">0</span>
+                <span id="display-lower"></span>
             </div>
             <div id="keyboard">
-                <div id="k-1" class="numbers"><p>1</p></div>
-                <div id="k-2" class="numbers"><p>2</p></div>
-                <div id="k-3" class="numbers"><p>3</p></div>
-                <div id="k-4" class="numbers"><p>4</p></div>
-                <div id="k-5" class="numbers"><p>5</p></div>
-                <div id="k-6" class="numbers"><p>6</p></div>
-                <div id="k-7" class="numbers"><p>7</p></div>
-                <div id="k-8" class="numbers"><p>8</p></div>
-                <div id="k-9" class="numbers"><p>9</p></div>
-                <div id="k-0" class="numbers"><p>0</p></div>
-                <div id="k-point" class="numbers"><p>.</p></div>
-                <div id="k-equals" class="operations"><p>=</p></div>
-                <div id="k-plus" class="operations"><p>+</p></div>
-                <div id="k-minus" class="operations"><p>-</p></div>
-                <div id="k-multi" class="operations"><p>*</p></div>
-                <div id="k-divide" class="operations"><p>/</p></div>
-                <div id="k-clear" class="operations"><p>C</p></div>
+                <div id="k-1" class="numbers" onclick="pushDisplay(1)"><p>1</p></div>
+                <div id="k-2" class="numbers" onclick="pushDisplay(2)"><p>2</p></div>
+                <div id="k-3" class="numbers" onclick="pushDisplay(3)"><p>3</p></div>
+                <div id="k-4" class="numbers" onclick="pushDisplay(4)"><p>4</p></div>
+                <div id="k-5" class="numbers" onclick="pushDisplay(5)"><p>5</p></div>
+                <div id="k-6" class="numbers" onclick="pushDisplay(6)"><p>6</p></div>
+                <div id="k-7" class="numbers" onclick="pushDisplay(7)"><p>7</p></div>
+                <div id="k-8" class="numbers" onclick="pushDisplay(8)"><p>8</p></div>
+                <div id="k-9" class="numbers" onclick="pushDisplay(9)"><p>9</p></div>
+                <div id="k-0" class="numbers" onclick="pushDisplay(10)"><p>0</p></div>
+                <div id="k-point" class="numbers" onclick="pushDisplay('.')"><p>.</p></div>
+                <div id="k-equals" class="operations" onclick="runCalculation()"><p>=</p></div>
+                <div id="k-plus" class="operations" onclick="pushDisplay('+')"><p>+</p></div>
+                <div id="k-minus" class="operations" onclick="pushDisplay('-')"><p>-</p></div>
+                <div id="k-multi" class="operations" onclick="pushDisplay('*')"><p>*</p></div>
+                <div id="k-divide" class="operations" onclick="pushDisplay('/')"><p>/</p></div>
+                <div id="k-clear" class="operations" onclick="clearDisplay()"><p>C</p></div>
+                <div id="k-backspace" class="operations" onclick="deleteFromDisplay()"><p>DEL</p></div>
             </div>
         </div>
 

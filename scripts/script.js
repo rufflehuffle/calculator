@@ -26,3 +26,96 @@ function operate(operator, x, y) {
             return divide(x, y);
     }
 }
+
+function pushDisplay(char) {
+    const display = document.querySelector('#display-main');
+    if (display.textContent === "0" || display.textContent === "ERROR") {
+        display.textContent = "";
+    }
+    display.textContent += char;
+}
+
+function clearDisplay() {
+    const display = document.querySelector('#display-main');
+    display.textContent = "0";
+
+    const lowerDisplay = document.querySelector('#display-lower');
+    lowerDisplay.textContent = "";
+}
+
+function deleteFromDisplay() {
+    console.log("WIP");
+}
+
+function runCalculation() {
+    const display = document.querySelector('#display-main');
+    let result = "";
+
+    if (!(result === "ERROR")) {
+        result = Math.round(+operateOnArray(sanitizeInput(display.textContent)));
+    }
+
+    const lowerDisplay = document.querySelector('#display-lower');
+    lowerDisplay.textContent = display.textContent;
+
+    display.textContent = result;
+}
+
+function operateOnArray(sanitizedInput) {
+    if (sanitizedInput === "ERROR") {
+        return "ERROR";
+    }
+
+    for (let i = 0; i < sanitizedInput.length; i++) {
+        if (isOperator(sanitizedInput[i])) {
+            sanitizedInput = [
+                ...sanitizedInput.slice(0, i - 1),
+                operate(sanitizedInput[i], +sanitizedInput[i-1], +sanitizedInput[i+1]),
+                ...sanitizedInput.slice(i + 2)
+            ]
+
+            i--;
+        }
+    }
+
+    return sanitizedInput;
+}
+
+function sanitizeInput(string) {
+    string = string.split('');
+
+    for (let i = 0, prev = ''; i < string.length; prev = string[i], i++) {
+        if (isOperator(string[i]) && isOperator(prev)) {
+            return("ERROR");
+        }
+
+        if (i === string.length - 1 && isOperator(string[i])) {
+            return("ERROR");
+        }
+
+        if (i === 0 && isOperator(string[i])) {
+            return("ERROR");
+        }
+
+        if (isNumber(string[i]) && isNumber(prev)) {
+            string = [
+                ...string.slice(0, i - 1),
+                prev + string[i],
+                ...string.slice(i + 1)
+            ]
+
+            i--;
+            prev = string[i - 1];
+        }
+    }
+
+    return string;
+}
+
+function isOperator(symbol) {
+    return (symbol.match('[\*\-\/\+]'));
+}
+
+function isNumber(n) {
+    return (n.match('[0-9]'))
+}
