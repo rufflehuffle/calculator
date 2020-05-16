@@ -1,3 +1,25 @@
+let holdingShift = false;
+handleShift();
+
+window.addEventListener('keydown',
+    (e) => {
+        let key = document.querySelector(`div[data-key='${e.keyCode}']`)
+        
+        if (holdingShift) {
+            const shiftKey = document.querySelector(`.shift[data-key='${e.keyCode}']`);
+            if (shiftKey) {
+                key = shiftKey;
+            }
+        }
+
+        if (!key) {
+            return;
+        }
+        key.onclick();
+    }
+);
+
+
 function add(x, y) {
     return x + y;
 }
@@ -44,7 +66,17 @@ function clearDisplay() {
 }
 
 function deleteFromDisplay() {
-    console.log("WIP");
+    const display = document.querySelector('#display-main');
+    const text = display.textContent;
+    
+    let modifiedText = text.split('');
+    modifiedText.pop();
+    modifiedText = modifiedText.join('')
+
+    display.textContent = modifiedText;
+    if (display.textContent === '') {
+        display.textContent = "0";
+    }
 }
 
 function runCalculation() {
@@ -70,7 +102,7 @@ function operateOnArray(sanitizedInput) {
         if (isOperator(sanitizedInput[i])) {
             sanitizedInput = [
                 ...sanitizedInput.slice(0, i - 1),
-                operate(sanitizedInput[i], +sanitizedInput[i-1], +sanitizedInput[i+1]),
+                operate(sanitizedInput[i], +sanitizedInput[i - 1], +sanitizedInput[i + 1]),
                 ...sanitizedInput.slice(i + 2)
             ]
 
@@ -86,15 +118,15 @@ function sanitizeInput(string) {
 
     for (let i = 0, prev = ''; i < string.length; prev = string[i], i++) {
         if (isOperator(string[i]) && isOperator(prev)) {
-            return("ERROR");
+            return ("ERROR");
         }
 
         if (i === string.length - 1 && isOperator(string[i])) {
-            return("ERROR");
+            return ("ERROR");
         }
 
         if (i === 0 && isOperator(string[i])) {
-            return("ERROR");
+            return ("ERROR");
         }
 
         if (isNumber(string[i]) && isNumber(prev)) {
@@ -118,4 +150,24 @@ function isOperator(symbol) {
 
 function isNumber(n) {
     return (n.match('[0-9]'))
+}
+
+function handleShift() {
+    window.addEventListener('keydown',
+        (e) => {
+            if (e.keyCode === 16) {
+                holdingShift = true;
+            }
+        }
+    );
+
+    window.addEventListener('keyup',
+        (e) => {
+            if (e.keyCode === 16) {
+                holdingShift = false;
+            }
+        }
+    );
+
+    window.addEventListener('blur', () => holdingShift = false);
 }
