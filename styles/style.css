@@ -1,7 +1,9 @@
 body {
-    height: 800px;
-    display: grid;
+    height: 90vh;
+    display: flex;
+    flex-direction: row;
     background-color: #d6cf91;
+    font-family: 'Space Mono', 'monospace';
 }
 
 .operations {
@@ -12,9 +14,39 @@ body {
     background-color: white;
 }
 
+#history-container {
+    position: absolute;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    padding: 10px;
+    background-color: white;
+    text-align: right;
+}
+
+#history-container > p {
+    font-size: 30px;
+}
+
+#history-equations > div {
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+    border: 1px dotted black;
+    padding: 5px;
+}
+
+#history-equations > div > .equation {
+    align-self: flex-start;
+}
+
 #calculator-container {
     margin: auto;
-    margin-top: 5vh;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 #keyboard > div {
@@ -42,7 +74,6 @@ body {
 #display {
     display: flex;
     flex-direction: column;
-    font-family: 'Space Mono', monospace;
     font-size: 50px;
     text-align: right;
     height: 10vh;
@@ -58,7 +89,6 @@ body {
 }
 
 #keyboard {
-    font-family: 'Space Mono', monospace;
     font-size: 30px;
     font-weight: 550;
     display: grid;

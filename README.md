@@ -1,8 +1,8 @@
 TO-DO:
-1. Add a history tracker
-2. Add visual feedback to keyboard input
-3. Do some QoL changes on the calculator input after an answer is calculated
-4. Add audio feedback
+1. Add visual feedback to keyboard input
+2. Do some QoL changes on the calculator input after an answer is calculated
+3. Add audio feedback
+4. Add PEMDAS parsing to calculations (and parentheses)
 
 KNOWN ISSUES:
 1. Calculator handles overflow oddly

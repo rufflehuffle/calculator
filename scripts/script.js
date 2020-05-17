@@ -1,51 +1,17 @@
 let holdingShift = false;
-handleShift();
-
-window.addEventListener('keydown',
-    (e) => {
-        let key = document.querySelector(`div[data-key='${e.keyCode}']`)
-        
-        if (holdingShift) {
-            const shiftKey = document.querySelector(`.shift[data-key='${e.keyCode}']`);
-            if (shiftKey) {
-                key = shiftKey;
-            }
-        }
-
-        if (!key) {
-            return;
-        }
-        key.onclick();
-    }
-);
-
-
-function add(x, y) {
-    return x + y;
-}
-
-function subtract(x, y) {
-    return x - y;
-}
-
-function multiply(x, y) {
-    return x * y;
-}
-
-function divide(x, y) {
-    return x / y;
-}
+trackShift();
+window.addEventListener('keydown', (e) => runDisplay(e));
 
 function operate(operator, x, y) {
     switch (operator) {
         case '+':
-            return add(x, y);
+            return x + y;
         case '-':
-            return subtract(x, y);
+            return x - y;
         case '*':
-            return multiply(x, y);
+            return x * y;
         case '/':
-            return divide(x, y);
+            return x / y;
     }
 }
 
@@ -68,7 +34,7 @@ function clearDisplay() {
 function deleteFromDisplay() {
     const display = document.querySelector('#display-main');
     const text = display.textContent;
-    
+
     let modifiedText = text.split('');
     modifiedText.pop();
     modifiedText = modifiedText.join('')
@@ -95,6 +61,8 @@ function runCalculation() {
     lowerDisplay.textContent = display.textContent;
 
     display.textContent = cleanedResult;
+
+    populateHistory(lowerDisplay.textContent, display.textContent);
 }
 
 function operateOnArray(sanitizedInput) {
@@ -185,7 +153,7 @@ function removeTrailingZeros(string) {
     return (+string).toString();
 }
 
-function handleShift() {
+function trackShift() {
     window.addEventListener('keydown',
         (e) => {
             if (e.keyCode === 16) {
@@ -203,4 +171,45 @@ function handleShift() {
     );
 
     window.addEventListener('blur', () => holdingShift = false);
+}
+
+function runDisplay(e) {
+    let key = document.querySelector(`div[data-key='${e.keyCode}']`)
+
+    if (holdingShift) {
+        const shiftKey = document.querySelector(`.shift[data-key='${e.keyCode}']`);
+        if (shiftKey) {
+            key = shiftKey;
+        }
+    }
+
+    if (!key) {
+        return;
+    }
+
+    key.onclick();
+}
+
+function populateHistory(equation, result) {
+    const historyContainer = document.querySelector('#history-equations');
+
+    if (historyContainer.childElementCount >= 10) {
+        historyContainer.removeChild(historyContainer.lastChild)
+    }
+    
+    const history = document.createElement('div');
+    history.classList.add('history');
+    
+    const equationElement = document.createElement('span');
+    equationElement.classList.add('equation');
+    equationElement.textContent = equation;
+
+    const resultElement = document.createElement('span');
+    resultElement.classList.add('result');
+    resultElement.textContent = result;
+
+    history.appendChild(equationElement);
+    history.appendChild(resultElement);
+
+    historyContainer.insertBefore(history, historyContainer.childNodes[0]);
 }
