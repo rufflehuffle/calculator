@@ -1,6 +1,7 @@
 let holdingShift = false;
 trackShift();
 window.addEventListener('keydown', (e) => runDisplay(e));
+handlePressClass();
 
 function operate(operator, x, y) {
     switch (operator) {
@@ -15,12 +16,23 @@ function operate(operator, x, y) {
     }
 }
 
+let displayIsAnswer = false;
+
 function pushDisplay(char) {
+    char = char.toString();
+
     const display = document.querySelector('#display-main');
+
+    if (!(isOperator(char)) && displayIsAnswer) {
+        display.textContent = "";
+    }
+
     if (display.textContent === "0" || display.textContent === "ERROR") {
         display.textContent = "";
     }
     display.textContent += char;
+
+    displayIsAnswer = false;
 }
 
 function clearDisplay() {
@@ -29,6 +41,8 @@ function clearDisplay() {
 
     const lowerDisplay = document.querySelector('#display-lower');
     lowerDisplay.textContent = "";
+
+    displayIsAnswer = false;
 }
 
 function deleteFromDisplay() {
@@ -40,9 +54,16 @@ function deleteFromDisplay() {
     modifiedText = modifiedText.join('')
 
     display.textContent = modifiedText;
+
+    if (displayIsAnswer) {
+        display.textContent = '';
+    }
+
     if (display.textContent === '') {
         display.textContent = "0";
     }
+
+    displayIsAnswer = false;
 }
 
 function runCalculation() {
@@ -63,6 +84,8 @@ function runCalculation() {
     display.textContent = cleanedResult;
 
     populateHistory(lowerDisplay.textContent, display.textContent);
+
+    displayIsAnswer = true;
 }
 
 function operateOnArray(sanitizedInput) {
@@ -188,6 +211,7 @@ function runDisplay(e) {
     }
 
     key.onclick();
+    key.classList.add('pressed');
 }
 
 function populateHistory(equation, result) {
@@ -211,5 +235,16 @@ function populateHistory(equation, result) {
     history.appendChild(equationElement);
     history.appendChild(resultElement);
 
+    history.setAttribute('onclick', `pushDisplay(${result})`);
+
     historyContainer.insertBefore(history, historyContainer.childNodes[0]);
+}
+
+function handlePressClass() {
+    const keys = document.querySelectorAll('.numbers, .operations')
+    keys.forEach(
+        (key) => key.addEventListener('transitionend', 
+            () => key.classList.remove('pressed')
+        )
+    );
 }

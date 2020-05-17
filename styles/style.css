@@ -14,6 +14,21 @@ body {
     background-color: white;
 }
 
+.history {
+    transition-duration: 0.1s;
+}
+
+.history:hover {
+    color: white;
+    background-color: black;
+    cursor: pointer;
+}
+
+.history:active {
+    color: black;
+    background-color: white;
+}
+
 #history-container {
     position: absolute;
     right: 0;
@@ -62,6 +77,13 @@ body {
 #keyboard > div:hover {
     background-color: black;
     color: white;
+}
+
+#keyboard > div.pressed {
+    background-color: white;
+    color: black;
+    transform: translateY(4px);
+    box-shadow: 0 5px gray;
 }
 
 #keyboard > div:active {
