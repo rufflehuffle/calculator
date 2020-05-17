@@ -14,6 +14,7 @@ body {
 
 #calculator-container {
     margin: auto;
+    margin-top: 5vh;
 }
 
 #keyboard > div {
@@ -44,7 +45,7 @@ body {
     font-family: 'Space Mono', monospace;
     font-size: 50px;
     text-align: right;
-    height: 100px;
+    height: 10vh;
     padding: 10px;
     background-color: #e2e2e2;
     border-top-left-radius: 10px;
@@ -70,8 +71,8 @@ body {
         "one    two     three  multi"
         "zero0  point   back   minus"
         ".     .       equals  plus";
-    grid-template-columns: repeat(4, 100px);
-    grid-template-rows: repeat(5, 100px);
+    grid-template-columns: repeat(4, 10vh);
+    grid-template-rows: repeat(5, 10vh);
     column-gap: 10px;
     row-gap: 19px;
     background-color: #0060ad;
