@@ -81,16 +81,20 @@ function deleteFromDisplay() {
 
 function runCalculation() {
     const display = document.querySelector('#display-main');
-    let result = Math.round(+operateOnArray(sanitizeInput(display.textContent)));
+
+    const input = sanitizeInput(display.textContent);
+    const result = operateOnArray(input);
+    const roundedResult = (+result).toFixed(4);
+    const cleanedResult = removeTrailingZeros(roundedResult);
 
     if (sanitizeInput(display.textContent) === 'ERROR') {
-        result = "ERROR"
+        cleanedResult = "ERROR"
     }
 
     const lowerDisplay = document.querySelector('#display-lower');
     lowerDisplay.textContent = display.textContent;
 
-    display.textContent = result;
+    display.textContent = cleanedResult;
 }
 
 function operateOnArray(sanitizedInput) {
@@ -116,6 +120,8 @@ function operateOnArray(sanitizedInput) {
 function sanitizeInput(string) {
     string = string.split('');
 
+    let decimalFound = false;
+
     for (let i = 0, prev = ''; i < string.length; prev = string[i], i++) {
         if (isOperator(string[i]) && isOperator(prev)) {
             return ("ERROR");
@@ -129,7 +135,22 @@ function sanitizeInput(string) {
             return ("ERROR");
         }
 
-        if (isNumber(string[i]) && isNumber(prev)) {
+        if (isDecimal(prev) && isDecimal(string[i])) {
+            return "ERROR";
+        }
+
+        if (isDecimal(string[i])) {
+            if (decimalFound) {
+                return "ERROR";
+            }
+            decimalFound = true;
+        }
+
+        if (isOperator(string[i])) {
+            decimalFound = false;
+        }
+
+        if (isNumeric(string[i]) && isNumeric(prev)) {
             string = [
                 ...string.slice(0, i - 1),
                 prev + string[i],
@@ -145,11 +166,23 @@ function sanitizeInput(string) {
 }
 
 function isOperator(symbol) {
-    return (symbol.match('[\*\-\/\+]'));
+    return (symbol.match('[+*/-]'));
 }
 
 function isNumber(n) {
     return (n.match('[0-9]'))
+}
+
+function isDecimal(n) {
+    return (n.match('[\.]'));
+}
+
+function isNumeric(n) {
+    return (isNumber(n) || isDecimal(n));
+}
+
+function removeTrailingZeros(string) {
+    return (+string).toString();
 }
 
 function handleShift() {
